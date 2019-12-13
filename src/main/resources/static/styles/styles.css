@@ -1,0 +1,10 @@
+.ingredient-group {
+    float: left;
+    width: 50%;
+}
+
+.grid::after {
+    display:block;
+    content:"";
+    clear:both;
+}
