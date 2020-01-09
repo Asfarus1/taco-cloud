@@ -3,25 +3,36 @@ package com.example.tacocloud.model;
 import lombok.Data;
 import org.hibernate.validator.constraints.CreditCardNumber;
 
-import javax.validation.constraints.Digits;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
+import javax.validation.constraints.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 @Data
 public class Order {
-    @NotBlank(message="Name is required")
+
+    private Long id;
+
+    private Date placedAt;
+
+    @NotBlank(message="{validation.name_not_empty}")
+    @Size(max = 50)
     private String name;
 
     @NotBlank(message="Street is required")
+    @Size(max = 50)
     private String street;
 
     @NotBlank(message="City is required")
+    @Size(max = 50)
     private String city;
 
     @NotBlank(message="State is required")
+    @Size(max = 2)
     private String state;
 
     @NotBlank(message="Zip code is required")
+    @Size(max = 10)
     private String zip;
 
     @CreditCardNumber(message="Not a valid credit card number")
@@ -34,4 +45,10 @@ public class Order {
     @Digits(integer=3, fraction=0, message="Invalid CVV")
     private String ccCVV;
 
+    @NotEmpty
+    private final List<Taco> tacos = new ArrayList<>();
+
+    public void addTaco(Taco taco){
+        tacos.add(taco);
+    }
 }

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Fragment library</title>
+    <link rel="stylesheet" th:href="@{../styles/styles.css}"/>
+</head>
+<body>
+
+<div th:fragment="form-field (name)" class="form-field"
+     th:with="type=${type} ?: 'text', title=${title} ?: #{formField.__${name}__}">
+    <label for="${name}" th:text="${title}"/>
+    <input id="${name}" th:field="*{__${name}__}"/>
+    <span class="validationError"
+          th:if="${#fields.hasErrors('__${name}__')}"
+          th:errors="*{__${name}__}">
+    </span>
+</div>
+
+</body>
+</html>

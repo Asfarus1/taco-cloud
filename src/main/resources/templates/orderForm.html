@@ -2,13 +2,14 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Taco Cloud</title>
-    <link rel="stylesheet" th:href="@{/styles.css}"/>
+    <link rel="stylesheet" th:href="@{../styles/styles.css}"/>
 </head>
 <body>
+<!--/*@thymesVar id="order" type="com.example.tacocloud.model.Order"*/-->
 <form method="POST" th:action="@{/orders}" th:object="${order}">
     <h1>Order your taco creations!</h1>
 
-    <img th:src="@{/images/TacoCloud.jpg}"/>
+    <img th:src="@{/images/TacoCloud.jpg}" width="100" height="100"/><br/>
     <a th:href="@{/design}" id="another">Design another taco</a><br/>
 
     <div th:if="${#fields.hasErrors()}">
@@ -16,41 +17,16 @@
     </div>
 
     <h3>Deliver my taco masterpieces to...</h3>
-    <label for="name">Name: </label>
-    <input type="text" th:field="*{name}"/>
-    <br/>
-
-    <label for="street">Street address: </label>
-    <input type="text" th:field="*{street}"/>
-    <br/>
-
-    <label for="city">City: </label>
-    <input type="text" th:field="*{city}"/>
-    <br/>
-
-    <label for="state">State: </label>
-    <input type="text" th:field="*{state}"/>
-    <br/>
-
-    <label for="zip">Zip code: </label>
-    <input type="text" th:field="*{zip}"/>
-    <br/>
+    <div th:replace="fragments::form-field ('name')"/>
+    <div th:replace="fragments::form-field ('street')"/>
+    <div th:replace="fragments::form-field ('city')"/>
+    <div th:replace="fragments::form-field ('state')"/>
+    <div th:replace="fragments::form-field ('zip')"/>
 
     <h3>Here's how I'll pay...</h3>
-    <label for="ccNumber">Credit Card #: </label>
-    <input type="text" th:field="*{ccNumber}"/>
-    <br/>
-
-    <label for="ccExpiration">Expiration: </label>
-    <input type="text" th:field="*{ccExpiration}"/>
-    <br/>
-
-    <label for="ccCVV">CVV: </label>
-    <input type="text" th:field="*{ccCVV}"/>
-    <span class="validationError"
-          th:if="${#fields.hasErrors('ccNumber')}"
-          th:errors="*{ccNumber}">CC Num Error</span>
-    <br/>
+    <div th:replace="fragments::form-field ('ccNumber')"/>
+    <div th:replace="fragments::form-field ('ccExpiration')"/>
+    <div th:replace="fragments::form-field ('ccCVV')"/>
 
     <input type="submit" value="Submit order"/>
 </form>
